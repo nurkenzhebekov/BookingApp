@@ -1,4 +1,4 @@
-package com.example.bookingapp.ui.fragments
+package com.example.bookingapp.ui.fragments.dialog
 
 import android.app.DatePickerDialog
 import android.app.Dialog

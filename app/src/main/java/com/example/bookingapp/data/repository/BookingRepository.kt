@@ -1,8 +1,8 @@
-package com.example.bookingapp.data
+package com.example.bookingapp.data.repository
 
 import androidx.lifecycle.LiveData
+import com.example.bookingapp.data.dao.BookingDao
 import com.example.bookingapp.data.model.Booking
-import com.example.bookingapp.data.model.Room
 
 class BookingRepository(private val bookingDao: BookingDao) {
 

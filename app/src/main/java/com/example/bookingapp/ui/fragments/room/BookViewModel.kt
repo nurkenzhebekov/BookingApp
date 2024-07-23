@@ -1,4 +1,4 @@
-package com.example.bookingapp.ui.fragments
+package com.example.bookingapp.ui.fragments.room
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,9 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.bookingapp.data.AppDatabase
-import com.example.bookingapp.data.BookingRepository
-import com.example.bookingapp.data.RoomRepoObject
-import com.example.bookingapp.data.RoomRepository
+import com.example.bookingapp.data.repository.BookingRepository
+import com.example.bookingapp.data.repository.RoomRepository
 import com.example.bookingapp.data.model.Booking
 import com.example.bookingapp.data.model.Room
 import kotlinx.coroutines.Dispatchers

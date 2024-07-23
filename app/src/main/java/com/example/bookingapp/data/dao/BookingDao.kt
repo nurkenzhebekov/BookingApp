@@ -1,4 +1,4 @@
-package com.example.bookingapp.data
+package com.example.bookingapp.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

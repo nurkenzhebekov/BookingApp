@@ -1,7 +1,6 @@
-package com.example.bookingapp
+package com.example.bookingapp.data
 
 import android.app.Application
-import com.example.bookingapp.data.RoomDataInitializer
 
 class BookingApp : Application() {
     override fun onCreate() {

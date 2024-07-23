@@ -1,21 +1,19 @@
-package com.example.bookingapp.ui.fragments
+package com.example.bookingapp.ui.fragments.room
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.bookingapp.R
-import com.example.bookingapp.data.RoomRepoObject
 import com.example.bookingapp.data.model.Booking
 import com.example.bookingapp.databinding.FragmentRoomDetailBinding
+import com.example.bookingapp.ui.fragments.dialog.BookingDatePickerDialogFragment
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -29,6 +27,8 @@ class RoomDetailFragment : Fragment() {
     private val args: RoomDetailFragmentArgs by navArgs()
     private val bookViewModel: BookViewModel by viewModels()
 
+    private lateinit var bookings: LiveData<List<Booking>>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,13 +41,16 @@ class RoomDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val roomId = args.roomId
-        bookViewModel.getBookingsForRoom(roomId).observe(viewLifecycleOwner, Observer { bookings ->
+
+        bookings = bookViewModel.getBookingsForRoom(roomId)
+
+        bookings.observe(viewLifecycleOwner, Observer { bookings ->
             if (bookings.isNotEmpty()) {
-                binding.tvRoomBook.text = "Booked"
+                binding.tvRoomBook.text = getString(R.string.string_booked)
                 binding.tvRoomBookDate.visibility = View.VISIBLE
                 binding.tvRoomBookDate.text = formatDate(bookings[0].date)
             } else {
-                binding.tvRoomBook.text = "Available"
+                binding.tvRoomBook.text = getString(R.string.string_available)
                 binding.tvRoomBookDate.visibility = View.GONE
             }
         })
@@ -60,30 +63,32 @@ class RoomDetailFragment : Fragment() {
 
                 val booking = Booking(roomId = roomId, date = bookingDate.time)
                 bookViewModel.insertBooking(booking)
+                Toast.makeText(requireContext(), "Booking successful", Toast.LENGTH_SHORT).show()
             }.show(parentFragmentManager, "BookingDatePickerDialogFragment")
         }
 
         binding.btnCancelBooking.setOnClickListener {
-            val bookings = bookViewModel.getBookingsForRoom(roomId).value
-            if (!bookings.isNullOrEmpty()) {
-                val bookingToCancel = bookings.firstOrNull { it.roomId == roomId }
-                if (bookingToCancel != null) {
-                    bookViewModel.deleteBooking(bookingToCancel)
-                    Toast.makeText(requireContext(), "Booking canceled", Toast.LENGTH_SHORT).show()
+            bookings.value?.let { bookingList ->
+                if (bookingList.isNotEmpty()) {
+                    val bookingToCancel = bookingList.firstOrNull {it.roomId == roomId}
+                    if (bookingToCancel != null) {
+                        bookViewModel.deleteBooking(bookingToCancel)
+                        Toast.makeText(requireContext(), "Booking canceled", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), "No booking to cancel", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
-                    Toast.makeText(requireContext(), "No booking to cancel", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Nothing to cancel", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(requireContext(), "No booking to cancel", Toast.LENGTH_SHORT).show()
             }
         }
 
         bookViewModel.bookingStatus.observe(viewLifecycleOwner, Observer { booked ->
             if (booked) {
-                binding.tvRoomBook.text = "Booked"
+                binding.tvRoomBook.text = getString(R.string.string_booked)
                 binding.tvRoomBookDate.visibility = View.VISIBLE
             } else {
-                binding.tvRoomBook.text = "Available"
+                binding.tvRoomBook.text = getString(R.string.string_available)
                 binding.tvRoomBookDate.visibility = View.GONE
             }
         })
@@ -96,8 +101,8 @@ class RoomDetailFragment : Fragment() {
             val room = rooms.find { it.id == roomId }
             room?.let {
                 binding.ivRoom.setImageResource(room.imageResId)
-                binding.tvRoomDetailsDesc.text = room.name
-                binding.tvRoomDetails.text = room.description
+                binding.tvRoomDetailsDesc.text = room.description
+                binding.tvRoomNameDetails.text = room.name
             }
         })
     }

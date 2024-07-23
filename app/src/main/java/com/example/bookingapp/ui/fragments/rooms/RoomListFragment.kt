@@ -1,4 +1,4 @@
-package com.example.bookingapp.ui.fragments
+package com.example.bookingapp.ui.fragments.rooms
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bookingapp.R
 import com.example.bookingapp.databinding.FragmentRoomListBinding
+import com.example.bookingapp.ui.fragments.room.BookViewModel
 
 class RoomListFragment : Fragment() {
 

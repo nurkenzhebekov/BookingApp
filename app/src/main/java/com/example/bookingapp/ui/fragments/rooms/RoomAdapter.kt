@@ -1,4 +1,4 @@
-package com.example.bookingapp.ui.fragments
+package com.example.bookingapp.ui.fragments.rooms
 
 import android.view.LayoutInflater
 import android.view.View
@@ -28,11 +28,9 @@ class RoomAdapter(private val rooms: List<Room>, private val onItemClick: (Room)
 
         private val roomName: TextView = itemView.findViewById(R.id.tv_room_name)
         private val roomImgView: ImageView = itemView.findViewById(R.id.iv_room)
-        private val roomDesc: TextView = itemView.findViewById(R.id.tv_room_desc)
 
         fun bind(room: Room, onItemClick: (Room) -> Unit) {
             roomName.text = room.name
-            roomDesc.text = room.description
             roomImgView.setImageResource(room.imageResId)
             itemView.setOnClickListener { onItemClick(room) }
         }

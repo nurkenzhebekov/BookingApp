@@ -18,10 +18,10 @@
             tools:src="@drawable/room1" />
 
         <TextView
-            android:id="@+id/tv_room_details"
+            android:id="@+id/tv_room_name_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Room Details"
+            tools:text="Room Name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -32,7 +32,7 @@
             android:id="@+id/tv_room_details_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Room Details"
+            tools:text="Room Description"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -43,7 +43,7 @@
             android:id="@+id/tv_room_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Yes"
+            tools:text="Available"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -54,7 +54,7 @@
             android:id="@+id/tv_room_book_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="23/07/2024"
+            tools:text="23/07/2024"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -66,13 +66,13 @@
             android:id="@+id/btn_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Book Room" />
+            android:text="@string/bt_book_room" />
 
         <Button
             android:id="@+id/btn_cancel_booking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel Booking"
+            android:text="@string/bt_cancel_booking"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 </FrameLayout>

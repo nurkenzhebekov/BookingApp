@@ -3,6 +3,8 @@ package com.example.bookingapp.data
 import android.content.Context
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.bookingapp.data.dao.BookingDao
+import com.example.bookingapp.data.dao.RoomDao
 import com.example.bookingapp.data.model.Booking
 import com.example.bookingapp.data.model.Room
 

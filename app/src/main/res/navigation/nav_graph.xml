@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/roomListFragment"
-        android:name="com.example.bookingapp.ui.fragments.RoomListFragment"
+        android:name="com.example.bookingapp.ui.fragments.rooms.RoomListFragment"
         android:label="fragment_room_list"
         tools:layout="@layout/fragment_room_list" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/roomDetailFragment"
-        android:name="com.example.bookingapp.ui.fragments.RoomDetailFragment"
+        android:name="com.example.bookingapp.ui.fragments.room.RoomDetailFragment"
         android:label="fragment_room_detail"
         tools:layout="@layout/fragment_room_detail">
         <argument
