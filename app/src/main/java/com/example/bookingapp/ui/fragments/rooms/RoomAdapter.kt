@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.bookingapp.R
 import com.example.bookingapp.data.model.Room
 
-class RoomAdapter(private val rooms: List<Room>, private val onItemClick: (Room) -> Unit) :
+class RoomAdapter(private var rooms: List<Room>, private val onItemClick: (Room) -> Unit) :
     RecyclerView.Adapter<RoomAdapter.RoomViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
@@ -24,6 +25,11 @@ class RoomAdapter(private val rooms: List<Room>, private val onItemClick: (Room)
         holder.bind(room, onItemClick)
     }
 
+    fun updateRooms(newRooms: List<Room>) {
+        rooms = newRooms
+        notifyDataSetChanged()
+    }
+
     class RoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val roomName: TextView = itemView.findViewById(R.id.tv_room_name)
@@ -31,7 +37,9 @@ class RoomAdapter(private val rooms: List<Room>, private val onItemClick: (Room)
 
         fun bind(room: Room, onItemClick: (Room) -> Unit) {
             roomName.text = room.name
-            roomImgView.setImageResource(room.imageResId)
+            Glide.with(itemView.context)
+                .load(room.imageResId)
+                .into(roomImgView)
             itemView.setOnClickListener { onItemClick(room) }
         }
     }

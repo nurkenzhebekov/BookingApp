@@ -37,17 +37,14 @@ class RoomListFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        binding.rvRooms.setHasFixedSize(true)
         binding.rvRooms.apply {
             adapter = roomAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
         roomViewModel.rooms.observe(viewLifecycleOwner, Observer { rooms ->
-            roomAdapter = RoomAdapter(rooms) { room ->
-                val action = RoomListFragmentDirections.actionRoomListFragmentToRoomDetailFragment(room.id)
-                findNavController().navigate(action)
-            }
-            binding.rvRooms.adapter = roomAdapter
+            roomAdapter.updateRooms(rooms)
         })
     }
 
